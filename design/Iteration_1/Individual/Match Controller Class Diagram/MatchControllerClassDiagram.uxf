@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>7</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>259</x>
+      <y>7</y>
+      <w>70</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>Cody Tomkins</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>357</x>
+      <y>42</y>
+      <w>385</w>
+      <h>147</h>
+    </coordinates>
+    <panel_attributes>_MatchController_
+--
+-views: ViewFacade
+-table: Table
+-rules: Rules
+-inQ: InBoundQueue
+--
++MatchController(InBoundQueue, Table, Rules, RemoteTableGateway, GameFactory)
++start(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>252</x>
+      <y>259</y>
+      <w>154</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+Rules
+--
+eval(Event, Table, Player): Move
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>364</x>
+      <y>182</y>
+      <w>21</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;110.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>280</x>
+      <y>322</y>
+      <w>189</w>
+      <h>238</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+Table
+--
++addPile(Pile): void
++addPlayer(Player): void
++getPile(String): Pile
++removeFromPile(String, Card)
++addToPile(String, Card)
++addToScore(Player, int): int
++isMatchOver(): boolean
++setMatchOver(boolean)
++getRandom(): Random
++getHost(): Party
++getCurrentPlayer(): Player
++setQuorum(Quorum): void
++getQuorum(): Quorum
++getPlayers(): Collection&lt;Player&gt;
++getPlayerMap(): Map&lt;Integer, Player&gt;
++createPlayer(Integer, String)
+lookupPlayer(String): Player
++getPlayer(Integer): Player</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>448</x>
+      <y>182</y>
+      <w>21</w>
+      <h>154</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;200.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>189</x>
+      <y>140</y>
+      <w>147</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>InBoundQueue
+--
+-serialVersionUID: long
+-pushBack: Stack&lt;Event&gt;
+--
++InBoundQueue()
++add(Event&gt;: boolean
++take(): Event
++pushBack(Event)
++isEmpty(): boolean</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>231</x>
+      <y>77</y>
+      <w>133</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0;170.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>476</x>
+      <y>322</y>
+      <w>175</w>
+      <h>147</h>
+    </coordinates>
+    <panel_attributes>ViewFacade
+--
+-factory: ViewFactory
+-views: List&lt;Views&gt;
+-remoteIdLookup: Map&lt;String, String&gt;
+--
++ViewFacade(ViewFactory)
++createView(PartyRole, Integer, String)
++getDefaultView(): View
++send(Marshalls): void
++add(View): void
++register(PresentationObject): void
++getRemoteId(String): String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>518</x>
+      <y>182</y>
+      <w>21</w>
+      <h>154</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;200.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>658</x>
+      <y>483</y>
+      <w>308</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+GameFactory
+--
++createRules(): Rules
++createTables(): Tables
++createPlayerFactory(): PlayerFactory
++createPlayer(Integer, String): Player
++createView(PartyRole, Integer, String, RemoteTableGateway): View</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>665</x>
+      <y>182</y>
+      <w>21</w>
+      <h>315</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;430.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>686</x>
+      <y>322</y>
+      <w>203</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>RemoteTableGateway
+--
+send(Marshalls, String): void
+sendString(String, String): void
+registerSocket(String, RemoteEndpoint): void
+getEndpoint(String): RemoteEndpoint
+setSocket(RemoteEndpoint): void
+isReady(): boolean
+getInstance(): RemoteTableGateway
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>714</x>
+      <y>182</y>
+      <w>21</w>
+      <h>154</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;200.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>413</x>
+      <y>588</y>
+      <w>308</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+ViewFactory
+--
++createView(PartyRole, Integer, String, RemoteTableGateway): View</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>560</x>
+      <y>462</y>
+      <w>21</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;180.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>665</x>
+      <y>651</y>
+      <w>322</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>P52MPGameFactory
+--
++createRules(): Rules
++createTable(): Table
++createView(PartyRole, Integer, String, RemoteTableGateway): View
++createPlayer(Integer, String): Player
++createPlayerFactory(): PlayerFactory</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>819</x>
+      <y>567</y>
+      <w>84</w>
+      <h>91</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;implements&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>588</x>
+      <y>630</y>
+      <w>91</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;implements&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0;110.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>350</x>
+      <y>686</y>
+      <w>168</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>PlayerFactory
+--
+createPlayer(Integer, String): Player</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>511</x>
+      <y>700</y>
+      <w>161</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;implements&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;210.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>980</x>
+      <y>686</y>
+      <w>91</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;110.0;20.0;110.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>994</x>
+      <y>742</y>
+      <w>147</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>P52SPGameFactory
+--
++createRules(): Rules</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
