@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>5</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>0</y>
+      <w>170</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>_GameFactoryFactory_
+--
++ PU52MP : String
++ PU52SP : String
++ SlapJack : String
+gameIds : String[]
+supported : List&lt;String&gt;
+--
+getGameFactory(selector : String) : GameFactory
+bg=red
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>625</x>
+      <y>180</y>
+      <w>220</w>
+      <h>115</h>
+    </coordinates>
+    <panel_attributes>_SlapjackRules_
+--
+P1_PILE : String
+P2_PILE : String
+DISCARD_PILE : String
+--
+SlapJackRules()
+eval(nextE : Event, table : Table, player : Player) : Move
+apply(e : CardEvent, table : Table, player : Player) : Move
+apply(e : DealEvent, table : Table, player : Player) : Move
+apply(e : InitGameEvent, table : Table, player : Player) : Move
+apply(e : NewPartyEvent, table : Table, player : Player) : Move
+apply(e : SetQuorumEvent, table : Table, player : Player) : Move
+apply(e : ConnectEvent, table : Table, player : Player) : Move
+registerEvents()
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>95</x>
+      <y>230</y>
+      <w>165</w>
+      <h>85</h>
+    </coordinates>
+    <panel_attributes>_P52Player_
+--
+score : int
+playerNum : int
+socketId : String
+P52Player(position : Integer, socketId : String)
+addToScore(amount : int ) : int
+getPlayerNum() : int
+getSocketId() : String
+getScore() : int
+toString() : String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>45</x>
+      <y>340</y>
+      <w>150</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>_Quorum_
+--
+Quorum(minPlayers : int, maxPlayers : int)
+Quorum(minS : String, maxS : String)
+isSet() : boolean
+meets(count : int) : boolean
+exceeds(count : int) : boolean</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>680</x>
+      <y>365</y>
+      <w>125</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>_SlapjackDealCommand_
+--
+apply(table : Table)
+apply(view : ViewFacade)
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>745</x>
+      <y>320</y>
+      <w>105</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>_SlapjackMove_
+--
+id: Long="36548"
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>600</x>
+      <y>415</y>
+      <w>125</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>_SlapjackInitCmd_
+--
+table : Table
+players : Map&lt;Integer, Player&gt;
+title : String
+--
+apply(table : Table)
+apply(view : ViewFacade)
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>385</x>
+      <y>200</y>
+      <w>195</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>_PlayerFactory_
+--
+createPlayer(position : Integer, socketId : String) : Player</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>970</x>
+      <y>35</y>
+      <w>95</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;..</panel_attributes>
+    <additional_attributes>10.0;10.0;170.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>305</x>
+      <y>240</y>
+      <w>275</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>_P52PlayerView_
+--
++ remote : RemoteTableGateway
++ pos : Integer
++ socketId : String
+P52PlayerView(num : Integer. socketId : String, remote : RemoteTableGateway)
+send(event : Marshalls)
+getCameraPosition() : Integer</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>865</x>
+      <y>180</y>
+      <w>105</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>_SetQuorumCmd_
+--
+SetQuorumCmd()
+apply(table : Table)
+apply(view : ViewFacade)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>785</x>
+      <y>115</y>
+      <w>185</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>_CreatePlayerCmd_
+--
+CreatePlayerCmd(position : Integer, socketId : String)
+apply(table : Table)
+apply(views : ViewFacade)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>580</x>
+      <y>495</y>
+      <w>160</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>_DealButton_
+--
+DealButton(label : String, location : Location)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>540</x>
+      <y>335</y>
+      <w>105</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>_EndPlayMove_
+--
+apply(table : Table)
+apply(view : ViewFacade)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>210</x>
+      <y>30</y>
+      <w>325</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+_GameFactory_
+--
+createRules() : Rules
+createTable() : Table
+createPlayerFactory() : PlayerFactory
+createPlayer(position : Integer, socketId : String) : Player
+createView(role : PartyRole, num Integer, socketId : String, gw : RemoteTableGateway) : View</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>210</x>
+      <y>115</y>
+      <w>325</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>_SlapJackGameFactory_
+--
+createRules() : Rules
+createTable() : Table
+createPlayerFactory() : PlayerFactory
+createPlayer(position : Integer, socketId : String) : Player
+createView(role : PartyRole, num Integer, socketId : String, gw : RemoteTableGateway) : View
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>590</x>
+      <y>125</y>
+      <w>185</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+_Rules_
+--
+eval(nextE: Event, table, Table, player: Player) : Move </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>210</x>
+      <y>325</y>
+      <w>155</w>
+      <h>225</h>
+    </coordinates>
+    <panel_attributes>_TableBase_
+--
+piles : Map&lt;String, Pile&gt;
+players : Map&lt;Integer, Player&gt;
+rng : Random
+matchOver : boolean
+quorum : Quorum
+currentPlayer : Integer
+playerFactory : PlayerFactory
+--
+addPile(pile : Pile)
+addPlayer(p : Player)
+getPile( string : String) : Pile
+removeFromPile(string : String, c : Card)
+addToPile(string : String, c : Card)
+addToScore(p : Player, i : int) : int
+isMatchOver() : boolean
+setMatchOver(over : boolean)
+getRandom() : Random
+getHost() : Party
+partiesReady() : boolean
+getCurrentPlayer() : Player
+setQuorum(quorum: Quorum)
+getQuorum() : Quorum
+getPlayers() : Collection&lt;Player&gt;
+getPlayerMap() : Map&lt;Integer, Player&gt;
+createPlayer(pos : Integer, socketId : String)
+lookupPlayer(socketId : String) : Player
+getPlayer(pos : Integer) : Player</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>680</x>
+      <y>150</y>
+      <w>15</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>165</x>
+      <y>40</y>
+      <w>55</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>90.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>295</x>
+      <y>90</y>
+      <w>15</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>235</x>
+      <y>170</y>
+      <w>15</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>275</x>
+      <y>170</y>
+      <w>15</w>
+      <h>165</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;310.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>320</x>
+      <y>170</y>
+      <w>15</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;140.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>420</x>
+      <y>170</y>
+      <w>15</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>530</x>
+      <y>130</y>
+      <w>70</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>190</x>
+      <y>355</y>
+      <w>30</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;40.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>90</x>
+      <y>390</y>
+      <w>15</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>30</x>
+      <y>430</y>
+      <w>150</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>_SlapJackQuorum_
+--
+Quorum(minPlayers : int, maxPlayers : int)
+Quorum(minS : String, maxS : String)
+isSet() : boolean
+meets(count : int) : boolean
+exceeds(count : int) : boolean
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>790</x>
+      <y>290</y>
+      <w>15</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>730</x>
+      <y>290</y>
+      <w>15</w>
+      <h>85</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;150.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>655</x>
+      <y>290</y>
+      <w>15</w>
+      <h>135</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;250.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>855</x>
+      <y>320</y>
+      <w>105</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>_RoundWinMove_
+--
+apply(table : Table)
+apply(view : ViewFacade)
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>840</x>
+      <y>275</y>
+      <w>75</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>130.0;90.0;130.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>865</x>
+      <y>230</y>
+      <w>105</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>_DropEventCmd_
+--
+apply(table : Table)
+apply(view : ViewFacade)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>840</x>
+      <y>240</y>
+      <w>35</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>50.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>840</x>
+      <y>195</y>
+      <w>35</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>50.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>800</x>
+      <y>155</y>
+      <w>15</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>650</x>
+      <y>470</y>
+      <w>15</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>625</x>
+      <y>290</y>
+      <w>15</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>
