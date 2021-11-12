@@ -10,6 +10,15 @@ import coms362.cards.events.inbound.Event;
 
 public class SlapJackRules extends RulesDispatchBase implements Rules, RulesDispatch 
 {
+	public static final String PLAYER_ONE_PILE = "p1Pile";
+    public static final String PLAYER_TWO_PILE = "p2Pile";
+    public static final String DISCARD_PILE = "discardPile";
+    
+    SlapJackRules()
+    {
+    	registerEvents();
+    }
+    
 	@Override
 	public Move eval(Event nextE, Table table, Player player)
 	{
@@ -17,4 +26,8 @@ public class SlapJackRules extends RulesDispatchBase implements Rules, RulesDisp
 		return null;
 	}
 
+	private void registerEvents()
+	{
+		
+	}
 }
