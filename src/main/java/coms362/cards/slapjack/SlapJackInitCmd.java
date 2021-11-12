@@ -29,11 +29,18 @@ public class SlapJackInitCmd implements Move
 	@Override
 	public void apply(Table table)
 	{
-		Pile playerOnePile = new Pile(SlapJackRules.PLAYER_ONE_PILE, new Location(500,359));
+		Pile discardPile = new Pile(SlapJackRules.DISCARD_PILE, new Location(500,359));
+		table.addPile(discardPile);
+		Pile playerOnePile = new Pile(SlapJackRules.PLAYER_ONE_PILE, new Location(500,159));
+		Pile playerTwoPile = new Pile(SlapJackRules.PLAYER_TWO_PILE, new Location(500,559));
 		Random random = table.getRandom();
-        try {
-            for (String suit : Card.suits) {
-                for (int i = 1; i <= 13; i++) {
+        try
+        {
+        	int even = 0;
+            for (String suit : Card.suits)
+            {
+                for (int i = 1; i <= 13; i++)
+                {
                     Card card = new Card();
                     card.setSuit(suit);
                     card.setRank(i);
@@ -41,12 +48,23 @@ public class SlapJackInitCmd implements Move
                     card.setY(random.nextInt(200) + 100);
                     card.setRotate(random.nextInt(360));
                     card.setFaceUp(random.nextBoolean());
-                    playerOnePile.addCard(card);
+                    if (even % 2 == 0)
+                    {
+                    	playerOnePile.addCard(card);
+                    }
+                    else
+                    {
+                    	playerTwoPile.addCard(card);
+                    }
+                    System.out.println(even);
+                    even++;
                 }
             }
             table.addPile(playerOnePile);
-            table.addPile(new Pile(P52Rules.DISCARD_PILE, new Location(500,359)));
-        } catch (Exception e) {
+            table.addPile(playerTwoPile);
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
 	}
