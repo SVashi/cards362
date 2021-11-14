@@ -54,7 +54,7 @@ public class SlapJackRules extends RulesDispatchBase implements Rules, RulesDisp
 			}
 			//flip turn after it is determined that they selected from their pile
 			turn = 2;
-			return new SlapJackMove(player, p1Pile, toPile);
+			return new SlapJackMove(c, player, p1Pile, toPile);
 		}else if(turn == 2 && player.getPlayerNum() == 2){
 			//this is when it is player 2's turn and they are the person who selected a card currently
 			c = p2Pile.getCard(e.getId());
@@ -62,7 +62,7 @@ public class SlapJackRules extends RulesDispatchBase implements Rules, RulesDisp
 				return new DropEventCmd();
 			}
 			turn = 1;
-			return new SlapJackMove(player, p2Pile, toPile);
+			return new SlapJackMove(c, player, p2Pile, toPile);
 		}else{
 			//if it is not their turn or they selected from the wrong deck then 
 			return new DropEventCmd();
