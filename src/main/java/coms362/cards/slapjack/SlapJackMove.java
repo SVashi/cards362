@@ -37,7 +37,7 @@ public class SlapJackMove implements Move
 	@Override
 	public void apply(ViewFacade view)
 	{
-		view.send(new HideCardRemote(c));
+		view.send(new ShowCardRemote(c));
 		view.send(new RemoveFromPileRemote(fromPile, c));
 		view.send(new AddToPileRemote(toPile, c));
 		view.send(new ShowCardRemote(c));

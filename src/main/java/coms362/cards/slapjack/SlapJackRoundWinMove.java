@@ -54,6 +54,7 @@ public class SlapJackRoundWinMove implements Move
 			view.send(new HideCardRemote(c));
 			view.send(new RemoveFromPileRemote(fromPile, c));
 			view.send(new AddToPileBottomRemote(toPile, c));
+			view.send(new HideCardRemote(c));
 		}
 		view.send(new ShowPlayerScore(p, null));
 	}
