@@ -7,6 +7,8 @@ import coms362.cards.abstractcomp.RulesDispatch;
 import coms362.cards.abstractcomp.RulesDispatchBase;
 import coms362.cards.abstractcomp.Table;
 import coms362.cards.events.inbound.Event;
+import coms362.cards.events.inbound.InitGameEvent;
+import coms362.cards.fiftytwo.P52InitCmd;
 
 public class SlapJackRules extends RulesDispatchBase implements Rules, RulesDispatch 
 {
@@ -26,6 +28,10 @@ public class SlapJackRules extends RulesDispatchBase implements Rules, RulesDisp
 		return null;
 	}
 
+	public Move apply(InitGameEvent e, Table table, Player player){
+		return new SlapJackInitCmd(table.getPlayerMap(), "SlapJack", table);
+	}
+	
 	private void registerEvents()
 	{
 		

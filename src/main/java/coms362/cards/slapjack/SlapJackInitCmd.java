@@ -7,7 +7,6 @@ import coms362.cards.abstractcomp.Move;
 import coms362.cards.abstractcomp.Player;
 import coms362.cards.abstractcomp.Table;
 import coms362.cards.app.ViewFacade;
-import coms362.cards.fiftytwo.P52Rules;
 import coms362.cards.model.Card;
 import coms362.cards.model.Location;
 import coms362.cards.model.Pile;
