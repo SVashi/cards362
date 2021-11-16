@@ -6,11 +6,11 @@ public class SlapJackQuorum extends Quorum
 {
 	public SlapJackQuorum(int minPlayers, int maxPlayers)
 	{
-		super(minPlayers, maxPlayers);
+		super(2, 2);
 	}
 	
 	public SlapJackQuorum(String minS, String maxS)
 	{
-        super(minS, maxS);
+        super(2, 2);
     }
 }
