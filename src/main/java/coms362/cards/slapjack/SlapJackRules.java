@@ -71,7 +71,7 @@ public class SlapJackRules extends RulesDispatchBase implements Rules, RulesDisp
 				rval =  new CreatePlayerCmd( e.getPosition(), e.getSocketId());
 			}			
 		}
-		System.out.println("PickupRules connectHandler rval = "+rval);
+		System.out.println("SlapJackRules connectHandler rval = "+rval);
 		return rval;
 	}
 
