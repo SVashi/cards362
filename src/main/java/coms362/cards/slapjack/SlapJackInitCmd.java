@@ -2,7 +2,6 @@ package coms362.cards.slapjack;
 
 import java.util.Map;
 import java.util.Random;
-
 import coms362.cards.abstractcomp.Move;
 import coms362.cards.abstractcomp.Player;
 import coms362.cards.abstractcomp.Table;
@@ -41,19 +40,28 @@ public class SlapJackInitCmd implements Move
 		Pile playerOnePile = new Pile(SlapJackRules.PLAYER_ONE_PILE, new Location(300,150));
 		Pile playerTwoPile = new Pile(SlapJackRules.PLAYER_TWO_PILE, new Location(300,450));
 		Random random = table.getRandom();
-		
-        try
+		try
         {
         	int even = 0;
             for (String suit : Card.suits)
             {
+            	boolean[] avail = new boolean[13];
+            	for (int i = 0; i < 13; i++)
+            		avail[i] = true;
                 for (int i = 1; i <= 13; i++)
                 {
                     Card card = new Card();
                     card.setSuit(suit);
-                    card.setRank(i);
+                    
+                    int rand = random.nextInt(13);
+                    while (avail[rand] == false)
+                    	rand = random.nextInt(13);
+                    
+                    card.setRank(rand+1);
                     card.setRotate(0);
                     card.setFaceUp(false);
+                    avail[rand] = false;
+                    
                     if (even % 2 == 0)
                     {
                     	card.setX(300);
