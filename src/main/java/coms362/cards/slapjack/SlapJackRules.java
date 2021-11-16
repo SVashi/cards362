@@ -16,7 +16,7 @@ import coms362.cards.events.inbound.InitGameEvent;
 import coms362.cards.events.inbound.NewPartyEvent;
 import coms362.cards.events.inbound.SetQuorumEvent;
 import coms362.cards.fiftytwo.CreatePlayerCmd;
-import coms362.cards.fiftytwo.DealCommand;
+import coms362.cards.slapjack.SlapJackDealCommand;
 import coms362.cards.fiftytwo.DropEventCmd;
 import coms362.cards.fiftytwo.P52InitCmd;
 import coms362.cards.fiftytwo.P52Move;
@@ -24,6 +24,7 @@ import coms362.cards.fiftytwo.PartyRole;
 import coms362.cards.fiftytwo.SetQuorumCmd;
 import coms362.cards.model.Card;
 import coms362.cards.model.Pile;
+import coms362.cards.fiftytwo.EndPlayMove;
 
 public class SlapJackRules extends RulesDispatchBase implements Rules, RulesDispatch 
 {
@@ -43,30 +44,12 @@ public class SlapJackRules extends RulesDispatchBase implements Rules, RulesDisp
 		return nextE.dispatch(this, table, player);
 	}
 	
-	public Move apply(CardEvent e, Table table, Player player){	
-		Pile fromPile = null;
-		if (player.getPlayerNum() == 1)
-		{
-			fromPile = table.getPile(PLAYER_ONE_PILE);
-		}
-		if (player.getPlayerNum() == 2)
-		{
-			fromPile = table.getPile(PLAYER_TWO_PILE);
-		}
-		Pile toPile = table.getPile(DISCARD_PILE);
-		Card c = fromPile.getCard(e.getId());
-		if (c == null) {
-			return new DropEventCmd();
-		}
-		return new P52Move(c, player, fromPile, toPile);		
-	}
-	
 	public Move apply(DealEvent e, Table table, Player player){
-		return new DealCommand(table, player);
+		return new SlapJackDealCommand(table, player);
 	}
 	
 	public Move apply(InitGameEvent e, Table table, Player player){
-		return new P52InitCmd(table.getPlayerMap(), "Slapjack Multiplayer", table);
+		return new SlapJackInitCmd(table.getPlayerMap(), "Slapjack Multiplayer", table);
 	}
 	
 	public Move apply(NewPartyEvent e, Table table, Player player){
@@ -77,7 +60,7 @@ public class SlapJackRules extends RulesDispatchBase implements Rules, RulesDisp
 	}
 	
 	public Move apply(SetQuorumEvent e, Table table, Player player){
-		return new SetQuorumCmd(e.getQuorum());
+		return new SetQuorumCmd(new SlapJackQuorum(2,2));
 	}
 	
 	public Move apply(ConnectEvent e, Table table, Player player){
@@ -98,6 +81,19 @@ public class SlapJackRules extends RulesDispatchBase implements Rules, RulesDisp
 		Pile p2Pile = table.getPile(PLAYER_TWO_PILE);
 		Pile toPile = table.getPile(DISCARD_PILE);
 		Card c;
+		
+		if (player.getScore() == 0)
+		{
+			if (player.getPlayerNum() == 1)
+			{
+				 return new EndPlayMove("Player 2 wins!");
+			}
+			if (player.getPlayerNum() == 2)
+			{
+				return new EndPlayMove("Player 1 wins!");
+			}
+		}
+		
 		//always check if they chose from the center pile and if so check the rank of the card
 		c = toPile.getCard(e.getId());
 		if(c != null && c.getRank() == 11){

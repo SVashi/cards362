@@ -40,7 +40,6 @@ public class SlapJackMove implements Move
 		view.send(new ShowCardRemote(c));
 		view.send(new RemoveFromPileRemote(fromPile, c));
 		view.send(new AddToPileRemote(toPile, c));
-		view.send(new ShowCardRemote(c));
 		view.send(new ShowPlayerScore(p, null));
 	}
 }

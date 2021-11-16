@@ -7,12 +7,12 @@ import coms362.cards.abstractcomp.Move;
 import coms362.cards.abstractcomp.Player;
 import coms362.cards.abstractcomp.Table;
 import coms362.cards.app.ViewFacade;
+import coms362.cards.events.remote.CreateButtonRemote;
 import coms362.cards.events.remote.CreatePileRemote;
 import coms362.cards.events.remote.SetBottomPlayerTextRemote;
 import coms362.cards.events.remote.SetGameTitleRemote;
 import coms362.cards.events.remote.SetupTable;
 import coms362.cards.fiftytwo.DealButton;
-import coms362.cards.fiftytwo.P52Rules;
 import coms362.cards.model.Card;
 import coms362.cards.model.Location;
 import coms362.cards.model.Pile;
@@ -36,10 +36,12 @@ public class SlapJackInitCmd implements Move
 	public void apply(Table table)
 	{
 		Pile discardPile = new Pile(SlapJackRules.DISCARD_PILE, new Location(500,359));
+		discardPile.setFaceUp(true);
 		table.addPile(discardPile);
 		Pile playerOnePile = new Pile(SlapJackRules.PLAYER_ONE_PILE, new Location(500,159));
 		Pile playerTwoPile = new Pile(SlapJackRules.PLAYER_TWO_PILE, new Location(500,559));
 		Random random = table.getRandom();
+		
         try
         {
         	int even = 0;
@@ -50,16 +52,18 @@ public class SlapJackInitCmd implements Move
                     Card card = new Card();
                     card.setSuit(suit);
                     card.setRank(i);
-                    card.setX(random.nextInt(200) + 100);
-                    card.setY(random.nextInt(200) + 100);
-                    card.setRotate(random.nextInt(360));
-                    card.setFaceUp(random.nextBoolean());
+                    card.setRotate(0);
+                    card.setFaceUp(false);
                     if (even % 2 == 0)
                     {
+                    	card.setX(500);
+                        card.setY(159);
                     	playerOnePile.addCard(card);
                     }
                     else
                     {
+                    	card.setX(500);
+                        card.setY(559);
                     	playerTwoPile.addCard(card);
                     }
                     System.out.println(even);
@@ -85,16 +89,17 @@ public class SlapJackInitCmd implements Move
 		/**Not sure if dealer is necessary in our implementation**/
 		for (Player p : players.values()){
 			String role = (p.getPlayerNum() == 1) ? "Dealer" : "Player "+p.getPlayerNum();
+			p.addToScore(26);
 			view.send(new SetBottomPlayerTextRemote(role, p));
 		}
 
 		/**Create two piles for two players of slapjack**/
 		view.send(new CreatePileRemote(table.getPile(SlapJackRules.PLAYER_ONE_PILE)));
 		view.send(new CreatePileRemote(table.getPile(SlapJackRules.PLAYER_TWO_PILE)));
-		view.send(new CreatePileRemote(table.getPile(P52Rules.DISCARD_PILE)));
+		view.send(new CreatePileRemote(table.getPile(SlapJackRules.DISCARD_PILE)));
 		DealButton dealButton = new DealButton("DEAL", new Location(0, 0));
 		view.register(dealButton); //so we can find it later. 
-		
+		view.send(new CreateButtonRemote(dealButton));
 	}
 
 }
