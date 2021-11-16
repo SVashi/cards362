@@ -5,6 +5,7 @@ import coms362.cards.abstractcomp.Player;
 import coms362.cards.abstractcomp.Rules;
 import coms362.cards.abstractcomp.Table;
 import coms362.cards.events.inbound.Event;
+import coms362.cards.fiftytwo.EndPlayMove;
 import coms362.cards.streams.InBoundQueue;
 
 public class PlayController {
@@ -33,6 +34,15 @@ public class PlayController {
 					.eval(nextE, table, player);
 				move.apply(table);
 				move.apply(views);
+				if (table.getPlayer(1).getScore() == 0 ){
+					move = new EndPlayMove("Player 2 wins!");
+					move.apply(table);
+					move.apply(views);
+				}else if (table.getPlayer(2).getScore() == 0 ){
+					move = new EndPlayMove("Player 1 wins!");
+					move.apply(table);
+					move.apply(views);
+				}
 				if (move.isMatchEnd()){
 					System.err.println("Terminating on MatchEnd "+move);
 					break;

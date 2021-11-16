@@ -81,12 +81,6 @@ public class SlapJackRules extends RulesDispatchBase implements Rules, RulesDisp
 		Pile p2Pile = table.getPile(PLAYER_TWO_PILE);
 		Pile toPile = table.getPile(DISCARD_PILE);
 		Card c;
-		if (table.getPlayer(1).getScore() == 0 ){
-			return new EndPlayMove("Player 2 wins!");
-		}else if (table.getPlayer(2).getScore() == 0 ){
-			return new EndPlayMove("Player 1 wins!");
-		}
-
 		//always check if they chose from the center pile and if so check the rank of the card
 		c = toPile.getCard(e.getId());
 		if(c != null && c.getRank() == 11){
