@@ -35,11 +35,11 @@ public class SlapJackInitCmd implements Move
 	@Override
 	public void apply(Table table)
 	{
-		Pile discardPile = new Pile(SlapJackRules.DISCARD_PILE, new Location(500,359));
+		Pile discardPile = new Pile(SlapJackRules.DISCARD_PILE, new Location(300,300));
 		discardPile.setFaceUp(true);
 		table.addPile(discardPile);
-		Pile playerOnePile = new Pile(SlapJackRules.PLAYER_ONE_PILE, new Location(500,159));
-		Pile playerTwoPile = new Pile(SlapJackRules.PLAYER_TWO_PILE, new Location(500,559));
+		Pile playerOnePile = new Pile(SlapJackRules.PLAYER_ONE_PILE, new Location(300,150));
+		Pile playerTwoPile = new Pile(SlapJackRules.PLAYER_TWO_PILE, new Location(300,450));
 		Random random = table.getRandom();
 		
         try
@@ -56,14 +56,14 @@ public class SlapJackInitCmd implements Move
                     card.setFaceUp(false);
                     if (even % 2 == 0)
                     {
-                    	card.setX(500);
-                        card.setY(159);
+                    	card.setX(300);
+                        card.setY(150);
                     	playerOnePile.addCard(card);
                     }
                     else
                     {
-                    	card.setX(500);
-                        card.setY(559);
+                    	card.setX(300);
+                        card.setY(450);
                     	playerTwoPile.addCard(card);
                     }
                     System.out.println(even);

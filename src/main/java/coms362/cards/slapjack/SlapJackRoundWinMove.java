@@ -1,5 +1,6 @@
 package coms362.cards.slapjack;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -29,15 +30,14 @@ public class SlapJackRoundWinMove implements Move
 	@Override
 	public void apply(Table table)
 	{
-		Collection<Card> tmp = fromPile.getCards();
-		Iterator<Card> iter = tmp.iterator();
+		ArrayList<Card> tmp = new ArrayList<>(fromPile.getCards());
 		Card c;
-		while (iter.hasNext()) {
-			c = iter.next();
+		for(int i =0; i<tmp.size(); i++) {
+			c =tmp.get(i);
 			//uses a quality ternary operator
 			table.addToPile(p.getPlayerNum() == 1 ? SlapJackRules.PLAYER_ONE_PILE : SlapJackRules.PLAYER_TWO_PILE, c);
 			table.removeFromPile(SlapJackRules.DISCARD_PILE,c);
-			//would be best to update score here
+			p.addToScore(1);
 		}
 		
 	}
@@ -45,11 +45,10 @@ public class SlapJackRoundWinMove implements Move
 	@Override
 	public void apply(ViewFacade view)
 	{
-		Collection<Card> tmp = fromPile.getCards();
-		Iterator<Card> iter = tmp.iterator();
+		ArrayList<Card> tmp = new ArrayList<>(toPile.getCards());
 		Card c;
-		while (iter.hasNext()) {
-			c = iter.next();
+		for(int i =0; i<tmp.size(); i++) {
+			c = tmp.get(i);
 			//hides the card and adds it to the bottom of the pile of the round winner
 			view.send(new HideCardRemote(c));
 			view.send(new RemoveFromPileRemote(fromPile, c));
