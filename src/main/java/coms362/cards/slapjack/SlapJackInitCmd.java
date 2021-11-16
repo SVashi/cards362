@@ -7,9 +7,16 @@ import coms362.cards.abstractcomp.Move;
 import coms362.cards.abstractcomp.Player;
 import coms362.cards.abstractcomp.Table;
 import coms362.cards.app.ViewFacade;
+import coms362.cards.events.remote.CreatePileRemote;
+import coms362.cards.events.remote.SetBottomPlayerTextRemote;
+import coms362.cards.events.remote.SetGameTitleRemote;
+import coms362.cards.events.remote.SetupTable;
+import coms362.cards.fiftytwo.DealButton;
+import coms362.cards.fiftytwo.P52Rules;
 import coms362.cards.model.Card;
 import coms362.cards.model.Location;
 import coms362.cards.model.Pile;
+
 
 public class SlapJackInitCmd implements Move
 {
@@ -69,9 +76,24 @@ public class SlapJackInitCmd implements Move
 	}
 
 	@Override
-	public void apply(ViewFacade views)
+	public void apply(ViewFacade view)
 	{
-		// TODO Auto-generated method stub
+		/**Set up table and title**/
+		view.send(new SetupTable());
+		view.send(new SetGameTitleRemote(title));
+
+		/**Not sure if dealer is necessary in our implementation**/
+		for (Player p : players.values()){
+			String role = (p.getPlayerNum() == 1) ? "Dealer" : "Player "+p.getPlayerNum();
+			view.send(new SetBottomPlayerTextRemote(role, p));
+		}
+
+		/**Create two piles for two players of slapjack**/
+		view.send(new CreatePileRemote(table.getPile(SlapJackRules.PLAYER_ONE_PILE)));
+		view.send(new CreatePileRemote(table.getPile(SlapJackRules.PLAYER_TWO_PILE)));
+		view.send(new CreatePileRemote(table.getPile(P52Rules.DISCARD_PILE)));
+		DealButton dealButton = new DealButton("DEAL", new Location(0, 0));
+		view.register(dealButton); //so we can find it later. 
 		
 	}
 
