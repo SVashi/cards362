@@ -13,7 +13,7 @@ public class GameFactoryFactory {
     // TODO: list of games is hardcoded for now
     static final String PU52MP = "PU52MP";
     static final String PU52SP = "PU52SP";
-    static final String SLAPJACK = "SLAPJACK";
+    static final String SLAPJACK = "SJ";
 
     String gameIds[] = {PU52MP, PU52SP, SLAPJACK};
     List<String> supported = Arrays.asList(gameIds);
