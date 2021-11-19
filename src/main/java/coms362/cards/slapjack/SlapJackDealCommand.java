@@ -30,7 +30,7 @@ public class SlapJackDealCommand implements Move
 	        try {
 	            String remoteId = views.getRemoteId(DealButton.kSelector);
 	            views.send(new HideButtonRemote(remoteId));
-	            Pile local = table.getPile(SlapJackRules.PLAYER_ONE_PILE);
+	            Pile local = table.getPile(""+1);
 	            if (local == null) {
 	                return;
 	            }
@@ -40,7 +40,27 @@ public class SlapJackDealCommand implements Move
 	                views.send(new UpdateCardRemote(c));
 	                System.out.println(outVal);
 	            }
-	            local = table.getPile(SlapJackRules.PLAYER_TWO_PILE);
+	            local = table.getPile(""+2);
+	            if (local == null) {
+	                return;
+	            }
+	            for (Card c : local.getCards()) {
+	                String outVal = "";
+	                views.send(new CreateCardRemote(c));
+	                views.send(new UpdateCardRemote(c));
+	                System.out.println(outVal);
+	            }
+	            local = table.getPile(""+3);
+	            if (local == null) {
+	                return;
+	            }
+	            for (Card c : local.getCards()) {
+	                String outVal = "";
+	                views.send(new CreateCardRemote(c));
+	                views.send(new UpdateCardRemote(c));
+	                System.out.println(outVal);
+	            }
+	            local = table.getPile(""+4);
 	            if (local == null) {
 	                return;
 	            }

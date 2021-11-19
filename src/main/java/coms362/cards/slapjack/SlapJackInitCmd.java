@@ -1,5 +1,6 @@
 package coms362.cards.slapjack;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Random;
 import coms362.cards.abstractcomp.Move;
@@ -37,12 +38,17 @@ public class SlapJackInitCmd implements Move
 		Pile discardPile = new Pile(SlapJackRules.DISCARD_PILE, new Location(300,300));
 		discardPile.setFaceUp(true);
 		table.addPile(discardPile);
-		Pile playerOnePile = new Pile(SlapJackRules.PLAYER_ONE_PILE, new Location(300,150));
-		Pile playerTwoPile = new Pile(SlapJackRules.PLAYER_TWO_PILE, new Location(300,450));
+		ArrayList<Pile> playerPiles = new ArrayList<>();
+		int[] x = {300, 300, 150, 450};
+		int[] y = {150, 450, 300, 300};
+		for (int i = 1; i <= table.getPlayers().size(); i++)
+		{
+			playerPiles.add(new Pile(""+i, new Location(x[i-1],y[i-1])));
+		}
 		Random random = table.getRandom();
+		int counter = 0;
 		try
         {
-        	int even = 0;
             for (String suit : Card.suits)
             {
             	boolean[] avail = new boolean[13];
@@ -61,25 +67,16 @@ public class SlapJackInitCmd implements Move
                     card.setRotate(0);
                     card.setFaceUp(false);
                     avail[rand] = false;
-                    
-                    if (even % 2 == 0)
-                    {
-                    	card.setX(300);
-                        card.setY(150);
-                    	playerOnePile.addCard(card);
-                    }
-                    else
-                    {
-                    	card.setX(300);
-                        card.setY(450);
-                    	playerTwoPile.addCard(card);
-                    }
-                    System.out.println(even);
-                    even++;
+                    card.setX(x[counter % table.getPlayers().size()]);
+                    card.setY(y[counter % table.getPlayers().size()]);
+                    playerPiles.get(counter % table.getPlayers().size()).addCard(card);
+                    counter++;
                 }
             }
-            table.addPile(playerOnePile);
-            table.addPile(playerTwoPile);
+            for (int i = 0; i < table.getPlayers().size(); i++)
+            {
+            	table.addPile(playerPiles.get(i));
+            }
         }
         catch (Exception e)
         {
@@ -102,8 +99,10 @@ public class SlapJackInitCmd implements Move
 		}
 
 		/**Create two piles for two players of slapjack**/
-		view.send(new CreatePileRemote(table.getPile(SlapJackRules.PLAYER_ONE_PILE)));
-		view.send(new CreatePileRemote(table.getPile(SlapJackRules.PLAYER_TWO_PILE)));
+		for (int i = 1; i <= players.size(); i++)
+        {
+			view.send(new CreatePileRemote(table.getPile(""+i)));
+        }
 		view.send(new CreatePileRemote(table.getPile(SlapJackRules.DISCARD_PILE)));
 		DealButton dealButton = new DealButton("DEAL", new Location(0, 0));
 		view.register(dealButton); //so we can find it later. 

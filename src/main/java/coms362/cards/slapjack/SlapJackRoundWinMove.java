@@ -30,16 +30,15 @@ public class SlapJackRoundWinMove implements Move
 	@Override
 	public void apply(Table table)
 	{
-		ArrayList<Card> tmp = new ArrayList<>(fromPile.getCards());
-		Card c;
-		for(int i =0; i<tmp.size(); i++) {
-			c =tmp.get(i);
-			//uses a quality ternary operator
-			table.addToPile(p.getPlayerNum() == 1 ? SlapJackRules.PLAYER_ONE_PILE : SlapJackRules.PLAYER_TWO_PILE, c);
-			table.removeFromPile(SlapJackRules.DISCARD_PILE,c);
-			p.addToScore(1);
-		}
-		
+//		ArrayList<Card> tmp = new ArrayList<>(fromPile.getCards());
+//		Card c;
+//		for(int i =0; i<tmp.size(); i++) {
+//			c =tmp.get(i);
+//			//uses a quality ternary operator
+//			table.addToPile(p.getPlayerNum() == 1 ? SlapJackRules.PLAYER_ONE_PILE : SlapJackRules.PLAYER_TWO_PILE, c);
+//			table.removeFromPile(SlapJackRules.DISCARD_PILE,c);
+//			p.addToScore(1);
+//		}
 	}
 
 	@Override

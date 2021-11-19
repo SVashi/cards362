@@ -28,11 +28,11 @@ public class SlapJackMove implements Move
 	
 	@Override
 	public void apply(Table table) {
-		//has to do weird checking as remove from pile doesn't accept a pile
-		table.removeFromPile(p.getPlayerNum() == 1 ? SlapJackRules.PLAYER_ONE_PILE : SlapJackRules.PLAYER_TWO_PILE, c);
-		table.addToPile(SlapJackRules.DISCARD_PILE, c);
-		//would be best to update score here
-		p.addToScore(-1);
+//		//has to do weird checking as remove from pile doesn't accept a pile
+//		table.removeFromPile(p.getPlayerNum() == 1 ? SlapJackRules.PLAYER_ONE_PILE : SlapJackRules.PLAYER_TWO_PILE, c);
+//		table.addToPile(SlapJackRules.DISCARD_PILE, c);
+//		//would be best to update score here
+//		p.addToScore(-1);
 	}
 
 	@Override

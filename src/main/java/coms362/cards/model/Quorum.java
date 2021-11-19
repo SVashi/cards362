@@ -19,36 +19,51 @@ package coms362.cards.model;
  */
 public class Quorum {
 
-    int min = 0;
-    int max = 0;
+    private int min = 0;
+    private int max = 0;
 
     public Quorum(int minPlayers, int maxPlayers) {
-        min = minPlayers;
-        max = maxPlayers;
+        setMin(minPlayers);
+        setMax(maxPlayers);
     }
 
     public Quorum(String minS, String maxS) {
         if (minS != null) {
-            min = Integer.valueOf(minS);
+            setMin(Integer.valueOf(minS));
         }
         if (maxS != null) {
-            max = Integer.valueOf(maxS);
+            setMax(Integer.valueOf(maxS));
         }
-        if (isSet() && min == 0) {
-            min = 1;
+        if (isSet() && getMin() == 0) {
+            setMin(1);
         }
     }
 
     public boolean isSet() {
-        return (min > 0 || max > 0);
+        return (getMin() > 0 || getMax() > 0);
     }
 
     public boolean meets(int count) {
-        return count >= min && count <= max;
+        return count >= getMin() && count <= getMax();
     }
 
     public boolean exceeds(int count) {
-        return count > max;
+        return count > getMax();
     }
 
+	public int getMax() {
+		return max;
+	}
+
+	public void setMax(int max) {
+		this.max = max;
+	}
+
+	public int getMin() {
+		return min;
+	}
+
+	public void setMin(int min) {
+		this.min = min;
+	}
 }
