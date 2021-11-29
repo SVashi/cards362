@@ -12,6 +12,7 @@ import coms362.cards.events.remote.CreatePileRemote;
 import coms362.cards.events.remote.SetBottomPlayerTextRemote;
 import coms362.cards.events.remote.SetGameTitleRemote;
 import coms362.cards.events.remote.SetupTable;
+import coms362.cards.events.remote.ShowPlayerScore;
 import coms362.cards.fiftytwo.DealButton;
 import coms362.cards.model.Card;
 import coms362.cards.model.Location;
@@ -96,6 +97,7 @@ public class SlapJackInitCmd implements Move
 			String role = (p.getPlayerNum() == 1) ? "Dealer" : "Player "+p.getPlayerNum();
 			p.addToScore(table.getPile(""+p.getPlayerNum()).getCards().size());
 			view.send(new SetBottomPlayerTextRemote(role, p));
+			view.send(new ShowPlayerScore(p, null));
 		}
 
 		/**Create two piles for two players of slapjack**/
