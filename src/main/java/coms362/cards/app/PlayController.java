@@ -1,5 +1,7 @@
 package coms362.cards.app;
 
+import java.util.ArrayList;
+
 import coms362.cards.abstractcomp.Move;
 import coms362.cards.abstractcomp.Player;
 import coms362.cards.abstractcomp.Rules;
@@ -25,7 +27,6 @@ public class PlayController {
 	    
 		Event nextE = null;
 		try {
-		
 			while (
 				! table.isMatchOver()
 				&& (nextE = inQ.take()) != null
@@ -34,12 +35,9 @@ public class PlayController {
 					.eval(nextE, table, player);
 				move.apply(table);
 				move.apply(views);
-				if (table.getPlayer(1).getScore() == 0 ){
-					move = new EndPlayMove("Player 2 wins!");
-					move.apply(table);
-					move.apply(views);
-				}else if (table.getPlayer(2).getScore() == 0 ){
-					move = new EndPlayMove("Player 1 wins!");
+				Player p = table.checkPlayerWin();
+				if(p != null) {
+					move = new EndPlayMove("Player " + p.getPlayerNum() + " wins!");
 					move.apply(table);
 					move.apply(views);
 				}

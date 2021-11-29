@@ -69,5 +69,7 @@ public interface Table {
     public Player lookupPlayer(String socketId);
 
     public Player getPlayer(Integer pos);
+    
+    public Player checkPlayerWin();
 
 }
