@@ -90,11 +90,8 @@ public class SlapJackRules extends RulesDispatchBase implements Rules, RulesDisp
 		Pile playerPile = table.getPile(""+player.getPlayerNum());
 		Pile toPile = table.getPile(DISCARD_PILE);
 		Card c;
-//		//always check if they chose from the center pile and if so check the rank of the card
 		c = toPile.getCard(e.getId());
 		if(c != null && c.getRank() == 11){
-//			//if the rank is 11 it is a jack so that player will win the round
-			// TODO
 			return new SlapJackRoundWinMove(player, toPile , playerPile);
 		}
 		if(turn == player.getPlayerNum()){
@@ -103,9 +100,12 @@ public class SlapJackRules extends RulesDispatchBase implements Rules, RulesDisp
 				return new DropEventCmd();
 			}
 			//turn doesn't work
-			
 			turn %= table.getPlayers().size();
 			turn++;
+			while(table.getPile(""+turn).getCards().size() == 0){
+				turn %= table.getPlayers().size();
+				turn++;
+			}
 			return new SlapJackMove(c, player, playerPile, toPile);
 		}else{
 			return new DropEventCmd();
