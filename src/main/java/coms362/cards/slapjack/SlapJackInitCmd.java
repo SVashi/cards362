@@ -94,7 +94,7 @@ public class SlapJackInitCmd implements Move
 		/**Not sure if dealer is necessary in our implementation**/
 		for (Player p : players.values()){
 			String role = (p.getPlayerNum() == 1) ? "Dealer" : "Player "+p.getPlayerNum();
-			p.addToScore(26);
+			p.addToScore(table.getPile(""+p.getPlayerNum()).getCards().size());
 			view.send(new SetBottomPlayerTextRemote(role, p));
 		}
 
