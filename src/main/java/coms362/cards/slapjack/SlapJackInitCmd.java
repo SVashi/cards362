@@ -40,8 +40,8 @@ public class SlapJackInitCmd implements Move
 		discardPile.setFaceUp(true);
 		table.addPile(discardPile);
 		ArrayList<Pile> playerPiles = new ArrayList<>();
-		int[] x = {300, 300, 150, 450};
-		int[] y = {150, 450, 300, 300};
+		int[] x = {300, 450, 300, 150};
+		int[] y = {150, 300, 450, 300};
 		for (int i = 1; i <= table.getPlayers().size(); i++)
 		{
 			playerPiles.add(new Pile(""+i, new Location(x[i-1],y[i-1])));
