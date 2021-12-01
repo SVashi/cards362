@@ -10,7 +10,7 @@ import coms362.cards.fiftytwo.P52Player;
 import coms362.cards.fiftytwo.P52PlayerView;
 import coms362.cards.fiftytwo.PartyRole;
 import coms362.cards.model.PlayerFactory;
-import coms362.cards.model.TableBase;
+import coms362.cards.model.TableBaseSlapJack;
 import coms362.cards.streams.RemoteTableGateway;
 
 public class SlapJackGameFactory implements GameFactory, PlayerFactory, ViewFactory
@@ -24,7 +24,7 @@ public class SlapJackGameFactory implements GameFactory, PlayerFactory, ViewFact
 	@Override
 	public Table createTable()
 	{
-		return new TableBase(this);
+		return new TableBaseSlapJack(this);
 	}
 
 	@Override
